@@ -1,0 +1,13 @@
+vbell off
+startup_message off
+
+screen -t $ 1
+screen -t $ 2
+screen -t $ 3
+screen -t $ 4
+screen -t root 5 sudo su
+screen -t top 0 htop
+select 1
+
+hardstatus alwayslastline
+hardstatus string '%{= kG}%-Lw%{= kW}%50> %n*%f %t%{= kG}%+Lw%< %{= kG}%-=%D %m/%d/%y | %C:%s %A | %1`%{-}'1
