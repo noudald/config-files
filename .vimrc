@@ -1,33 +1,45 @@
 set nocompatible
-syntax on
-set encoding=utf-8
+filetype off
 
-" Important must have options
-set hidden
-set wildmenu
-set showcmd
-set hlsearch
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" Usability options
-set ignorecase
-set smartcase
-" set autoindent
-"set cindent
-set cmdheight=2
-set number
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
 
-" Indentations
-"set shiftwidth=2
-"set softtabstop=2
-"set tabstop=4
-"set softtabstop=4
-"set noexpandtab
+" Folding code, the correct way.
+Plugin 'tmhedberg/SimpylFold'
 
-" Backup
-set swapfile
+" Indent python
+Plugin 'vim-scripts/indentpython.vim'
+
+" Auto completion
+Plugin 'Valloric/YouCompleteMe'
+
+" Syntax checking
+Plugin 'scrooloose/syntastic'
+Plugin 'nvie/vim-flake8'
+let python_highlight_all=1
+
+" The NERD Tree
+Plugin 'scrooloose/nerdtree'
+Plugin 'jistr/vim-nerdtree-tabs'
+
+" Git integration
+Plugin 'tpope/vim-fugitive'
+
+" All of your Plugins must be added before the following line
+call vundle#end()
+filetype plugin indent on
+
+" Enable backups
+set backup
 set backupdir=~/.vim/backup
+set directory=~/.vim/backup
+set writebackup
 
-" gvim
+" set background color
 if has("gui_running")
 	set guifont=Monospace\ 8
 	set lines=50
@@ -37,23 +49,101 @@ else
 	set background=dark
 endif
 
-""""""
-" Sage settings (from Franco Saliola)
-autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python
-autocmd Filetype python set tabstop=4|set shiftwidth=4|set expandtab
-autocmd FileType python set makeprg=sage\ -b\ &&\ sage\ -t\ %
+" Python identation
+"au BufNewFile,BufRead *.py, *.sage
+"    \ set tabstop=4
+"    \ set shiftwidth=4
+"    \ set textwidth=79
+"    \ set expandtab
+"    \ set autoindent
+"    \ set fileformat=unix
+
+" Identation for javascript, html and css
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
 
 " Latex settings
-"map ,p :!pdflatex % & 
-"map ,b :!bibtex % & 
-"map ,v :!evince %<.pdf & 
-"map ,t :w !pdflatex % & 
+autocmd BufRead,BufNewFile *.tex 
+    \ set tabstop=2
+    \ set shiftwidth=2
+    \ set expandtab
+    \ set iskeyword+=_,:,-
 
-setlocal makeprg=pdflatex\ \-file\-line\-error\ \-interaction=nonstopmode\ $*\\\|\ grep\ \-E\ '\\w+:[0-9]{1,4}:\\\ ' 
-setlocal errorformat=%f:%l:\ %m 
-map <buffer> <F5> :w<CR>:make %<<CR> 
-map <buffer> <F6> :!bibtex %<<CR>
-map <buffer> <F7> :!evince %<.pdf &<CR> 
-map <F9> :cprev<CR> 
-map <F10> :cnext<CR> 
-map <F11> :clist<CR> 
+" Flagging unnecessary whitespaces
+highlight BadWhitespace ctermbg=red guibg=red
+au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Ensure the autocomplete windows goews away when you're done with it.
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+
+set encoding=utf-8
+syntax on
+set nu " Line numbers
+set clipboard=unnamed " Copy to general clipboard
+
+"set nocompatible
+"let g:tex_comment_nospell= 1
+"set spell spelllang=en_us
+"syntax on
+"set encoding=utf-8
+"
+"set iskeyword+=:
+"set iskeyword+=_
+"set iskeyword+=.
+"
+"" Important must have options
+"set hidden
+"set wildmenu
+"set showcmd
+"set hlsearch
+"
+"" Usability options
+"set ignorecase
+"set smartcase
+"" set autoindent
+""set cindent
+"set cmdheight=2
+"set number
+"
+"" Indentations
+""set shiftwidth=2
+""set softtabstop=2
+""set tabstop=4
+""set softtabstop=4
+""set noexpandtab
+"
+"" gvim
+"if has("gui_running")
+"	set guifont=Monospace\ 8
+"	set lines=50
+"	set columns=100
+"	colorscheme desert
+"else
+"	set background=dark
+"endif
+"
+"" go to the position I was when last editing the file
+"au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g'\"" | endif
+"
+"
+"""""""
+"" Sage settings (from Franco Saliola)
+"autocmd BufRead,BufNewFile *.sage,*.pyx,*.spyx set filetype=python
+"autocmd Filetype python set tabstop=4|set shiftwidth=4|set expandtab
+"autocmd FileType python set makeprg=sage\ -b\ &&\ sage\ -t\ %
+"
+"" Latex settings
+"autocmd BufRead,BufNewFile *.tex set tabstop=2|set shiftwidth=2|set expandtab|set iskeyword+=_,:,-
+"
+"" Javascript settings
+"autocmd BufRead,BufNewFile *.html set tabstop=2|set shiftwidth=2|set expandtab
+"autocmd BufRead,BufNewFile *.js set tabstop=2|set shiftwidth=2|set expandtab
+"
+"" php settings
+"autocmd BufRead,BufNewFile *.php set tabstop=4|set shiftwidth=2|set expandtab
+"
