@@ -16,5 +16,5 @@ sudo apt-get install arandr \
 	ipython \
 	steam \
 	gparted \
-	cmake-curses-gui
-
+	cmake-curses-gui \
+	tmux
