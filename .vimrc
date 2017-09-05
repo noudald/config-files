@@ -19,6 +19,10 @@ Bundle 'Valloric/YouCompleteMe'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" Set 80 columns layout
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+
 set background=dark
 
 " Enable backups
