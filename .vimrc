@@ -28,6 +28,7 @@ match OverLength /\%81v.\+/
 
 set background=dark
 set laststatus=2
+set hlsearch
 
 " Enable backups
 set backup
