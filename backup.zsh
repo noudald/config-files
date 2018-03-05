@@ -12,5 +12,9 @@ rsync --archive --verbose --itemize-changes \
        	${HOME}/{documents,work,nowork,Dropbox} ${backup_folder}/ \
 	| tee ${backup_main_folder}/backup-${backup_name}.log
 
+chown noud:noud ${backup_main_folder}/backup-${backup_name}.log
+chown -R noud:noud ${backup_folder}
+
 rm ${backup_main_folder}/current
 ln -s ${backup_folder} ${backup_main_folder}/current
+chown noud:noud ${backup_main_folder}/current
