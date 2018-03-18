@@ -15,6 +15,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'petRUShka/vim-sage'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -25,6 +26,11 @@ syntax on
 " Set 80 columns layout
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
+
+" Indents are replaced by 4 spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+autocmd BufRead,BufNewFile /home/noud/work/mindsai/* setlocal ts=2 sw=2
+autocmd BufRead,BufNewFile /home/noud/work/mindsai/* match OverLength /\%101v.\+/
 
 set background=dark
 set laststatus=2
