@@ -16,12 +16,22 @@ Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'petRUShka/vim-sage'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+
+let python_highlight_all=1
 syntax on
+
+" Automatically reload files if changed
+set autoread
+au CursorHold,CursorHoldI * checktime
+au FocusGained,BufEnter * :checktime
 
 " Set 80 columns layout
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
