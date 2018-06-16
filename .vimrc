@@ -13,7 +13,6 @@ Plugin 'gmarik/Vundle.vim'
 
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 Plugin 'vim-scripts/indentpython.vim'
-Bundle 'Valloric/YouCompleteMe'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'petRUShka/vim-sage'
 Plugin 'vim-syntastic/syntastic'
