@@ -14,42 +14,26 @@ Plugin 'gmarik/Vundle.vim'
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'petRUShka/vim-sage'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
+Plugin 'timonv/vim-cargo'
+Plugin 'yuezk/vim-js'
+Plugin 'maxmellon/vim-jsx-pretty'
+Plugin 'rust-lang/rust.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'loremipsum'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-"let g:ycm_global_ycm_extra_conf = "~/.vim/.ycm_extra_conf.py"
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
 let python_highlight_all=1
 syntax on
 
-" Automatically reload files if changed
-set autoread
-au CursorHold,CursorHoldI * checktime
-au FocusGained,BufEnter * :checktime
-
-" Set 80 columns layout
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
-
-" Indents are replaced by 4 spaces
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
-autocmd BufRead,BufNewFile /home/noud/work/mindsai/* setlocal ts=2 sw=2
-autocmd BufRead,BufNewFile /home/noud/work/mindsai/* match OverLength /\%101v.\+/
-
-set background=dark
 set laststatus=2
 set hlsearch
-
-" Enable backups
-set backup
-set backupdir=~/.vim/backup
-set directory=~/.vim/backup
-set writebackup
 
 " set background color
 if has("gui_running")
@@ -60,3 +44,24 @@ if has("gui_running")
 else
 	set background=dark
 endif
+
+" Finding files (fuzzy finding)
+set path+=**
+set wildmenu
+
+" Tag jumping
+command! MakeTags !ctags -R .
+
+" File browsing
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_altv=1
+let g:netrw_liststyle=3
+let g:netrw_list_hide=netrw_gitignore#Hide()
+let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+
+" Rusty tags
+autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+
+" Set tab to 2 spaces for javascript
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
