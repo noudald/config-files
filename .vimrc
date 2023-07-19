@@ -1,56 +1,23 @@
-set nocompatible              " required
-filetype off                  " required
+set nocompatible
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'ntpeters/vim-better-whitespace'
-Plugin 'timonv/vim-cargo'
-Plugin 'yuezk/vim-js'
-Plugin 'maxmellon/vim-jsx-pretty'
-Plugin 'rust-lang/rust.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'loremipsum'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-let python_highlight_all=1
 syntax on
 
-set laststatus=2
-set hlsearch
+set tabstop=4       " A tab is 4 spaces
+set shiftwidth=4    " Auto indent is always 4 spaces
+set softtabstop=4   " When hitting backspace, pretend like a tab is removed
+set expandtab       " Expand tabs to spaces
+set autoindent      " Always use auto indenting
+set background=dark " Use light text with dark background
+set laststatus=2    " Always show status line in last window
+set hlsearch        " Highlight search terms
+set incsearch       " Show search matches as you type
 
-" set background color
-if has("gui_running")
-	set guifont=Monospace\ 8
-	set lines=50
-	set columns=100
-	colorscheme desert
-else
-	set background=dark
-endif
+" Set tab to 2 spaces for javascript
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 
 " Finding files (fuzzy finding)
 set path+=**
 set wildmenu
-
-" Tag jumping
-command! MakeTags !ctags -R .
 
 " File browsing
 let g:netrw_banner=0
@@ -60,8 +27,11 @@ let g:netrw_liststyle=3
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
-" Rusty tags
-autocmd BufRead *.rs :setlocal tags=./rusty-tags.vi;/
+" Show trailing white spaces
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$/
 
-" Set tab to 2 spaces for javascript
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+" Store backup files in separate folder
+set directory=~/.vim/backups
+set backup
+set swapfile
