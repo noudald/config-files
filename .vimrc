@@ -11,6 +11,7 @@ set background=dark " Use light text with dark background
 set laststatus=2    " Always show status line in last window
 set hlsearch        " Highlight search terms
 set incsearch       " Show search matches as you type
+set autoread        " Automatically reload when file changed
 
 " Set tab to 2 spaces for javascript
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
@@ -18,6 +19,11 @@ autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 " Finding files (fuzzy finding)
 set path+=**
 set wildmenu
+
+" Set spellchecker and color
+set spell
+hi clear SpellBad
+hi SpellBad cterm=underline
 
 " File browsing
 let g:netrw_banner=0
